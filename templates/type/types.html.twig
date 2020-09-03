@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Types !{% endblock %}
+{% block monTitre %} Liste de tous les types !
+ 
+{% endblock %} 
+{% block body %}
+    <div class="row ">
+    {#Dans ce fichier twig on va afficher les informations des types , en les parcourant par une boucle for#}
+        {% for type in Lestypes %}
+            <div class="col-6">
+                    <div class="row align-items-center">
+                       <div class="col-lg-6 col-md-4 col-6">
+                       {# pour pouvoir recuperer l'image qui est déja enregistrer dans l'entité type dans la base de 
+                       données , on pourra utiliser la fonction asset pour définir l'emplement physique de l'image 
+                       dans les dossier images/types #}
+                       <img class="perso_imgAliment img-fluid" src="{{asset('images/types/' ~ type.image)}}">
+                       </div> 
+                      
+                       <div class="col">
+                          {{ type.libelle }}
+                       </div> 
+                   </div>
+            </div>
+        
+
+       {% endfor %}
+
+    </div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{# L'affichage de cette page sera  la liste des aliments #}
+{% block title %} Admin{% endblock %}
+ {% block monTitre %} Page d'administration {% endblock %} 
+
+
+{% block body %}
+{# Pour indiquer si chaque operation a été bien effectué  ou non, on recupere les message flashes
+renseigné dans le controller avec le parametre globale App et la fonction .flashes() #}
+  {% for message in app.flashes('success')%}
+    <div class="alert alert-success">
+        {{message}}
+        </div>
+     {% endfor %}    
+
+
+
+
+     {# si l'admin cliquer sur le bouton ajouter il sera emmener vers la page du route adminaliment_creation
+     qui est indiqué dans le path #}
+  <a class="btn btn-success" href="{{path('adminaliment_creation')}}">Ajouter</a>
+  <table class="table">
+  <tr class="table-primary">
+    <td>Image</td>
+    <td>Aliment</td>
+    <td>Type</td>
+    <td>Prix</td>
+    <td>Calorie</td>
+    <td>Proteine</td>
+    <td>Glucides</td>
+    <td>Lipides</td>
+    <td>Actions</td>
+  </tr>
+  {% for aliment in aliments %}
+  <tr>
+    <td ><img  style="height: 60px;
+    width: 70px;"class="perso_imgAlimentAdmin" src="{{asset('images/aliments/' ~ aliment.image)}}"></td>
+    <td><strong>{{aliment.nom}}</strong></td>
+    <td><strong>{{aliment.type.libelle}}</strong></td>
+    <td>{{aliment.prix}}</td>
+    <td>{{aliment.calorie}}</td>
+    <td>{{aliment.proteine}}</td>
+    <td>{{aliment.glucide}}</td>
+    <td>{{aliment.lipide}}</td>
+         {# si l'admin cliquer sur le bouton ajouter il sera emmener vers la page du route adminaliment_modification
+     qui est indiqué dans le path #}
+    <td><a class="btn btn-secondary" href="{{path('adminaliment_modification',{'id': aliment.id})}}">Modifier</a>
+   
+    <form method="POST" style="display:inline-block"action="{{path('adminaliment_suppression',{'id':aliment.id})}}" onsubmit="return confirm('confirmer la suppression ?')">
+    <input type="hidden" name="_method" value="delete">
+     <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ aliment.id )}}">
+    <input type="submit" class="btn btn-danger" value="supprimer" >
+  
+    </form>
+    
+    </td>
+   </tr>
+  {% endfor %}
+  </table>
+
+{% endblock %}

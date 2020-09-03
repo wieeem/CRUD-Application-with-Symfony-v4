@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Modification{% endblock %}
+ {% block monTitre %}
+ {# cette page va servir pour que l'admin fait des modification ou d'ajout d'aliment 
+ C'est pour cela qu'on a créer une valeur boolean qu'on a recuperer a partir du controlleur 
+ pour indiquer si on va faire une modification ou un ajout 
+ #}
+ {% if isModification == true %}
+  Modification {{aliment.nom}}
+  {% else %}
+  Ajout d'un Aliment 
+  {% endif %}
+   {% endblock %} 
+
+
+{% block body %}
+{# on affiche le corp du formulaire qui permet a l'admin d'effectuer l'action voulu 
+changer le nom , l'image ,le type #}
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-6">
+     {% if isModification == true %}
+        <img src="{{asset('images/aliments/' ~ aliment.image)}}" style="width:25%">
+      {% endif %}  
+        <div>{{ form_row(form.imageFile) }}</div>
+        <div>{{ form_row(form.nom,{"attr": { 'class':'text-danger bg-success'},"label": "nom de l'aliment"}) }}</div>
+     <div>{{ form_row(form.type) }}</div>
+    </div>
+    
+    <div class="col-6">
+      {{ form_widget(form) }}
+    </div>
+      
+</div>
+      <input type="submit" class="btn btn-primary" value="Enregistrer">
+{{ form_end(form) }}
+{% endblock %}

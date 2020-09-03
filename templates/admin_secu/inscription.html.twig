@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{# Cette page contient le formulaire d'inscription #}
+{% block title %}Inscription{% endblock %}
+
+ {% block monTitre %}  Inscription sur le site
+ 
+ {% endblock %}
+
+{% block body %}
+<div style="width: 41%;
+    margin-left: 51px;">
+{{ form_start(form) }}
+{{
+
+    form_row(form.username,{
+        'attr':{"placeholder":" saisir votre login"},
+        'label':'Votre Login'
+        } )
+
+
+}}
+
+{{ form_widget(form) }}
+<input type="submit" class="btn btn-primary" value="Valider" style="background: burlywood;
+    border: 0px;">
+{{ form_end(form) }}
+</div>
+{% endblock %}
